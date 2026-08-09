@@ -1,0 +1,44 @@
+name: Stock feed sync (mijeurope -> Shoptet)
+
+on:
+  schedule:
+    # kazde 3 hodiny; uprav podle toho, jak casto to Shoptetuv tarif dovoli tahat
+    - cron: "0 */3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install openpyxl
+
+      - name: Convert feed
+        env:
+          MIJEUROPE_FEED_URL: ${{ secrets.MIJEUROPE_FEED_URL }}
+          OUT_DIR: public
+        run: |
+          mkdir -p public
+          python convert_feed.py
+
+      - name: Commit output
+        run: |
+          git config user.name "stock-sync-bot"
+          git config user.email "info@tomaszahradnik.com"
+          git add public/stock_ean.csv public/stock_kod.csv
+          git diff --quiet --cached || git commit -m "Update stock feed"
+          git push
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
