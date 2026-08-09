@@ -1,16 +1,16 @@
-name: Stock feed sync (mijeurope -> Shoptet)
+name: Generate Shoptet stock XML (mijeurope feed)
 
 on:
   schedule:
-    # kazde 3 hodiny; uprav podle toho, jak casto to Shoptetuv tarif dovoli tahat
-    - cron: "0 */3 * * *"
+    # kazdy den v 5:30 UTC (7:30 CEST) - uprav podle toho, kdy si soubor stahujes
+    - cron: "30 5 * * *"
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
 jobs:
-  sync:
+  generate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,21 +21,13 @@ jobs:
 
       - run: pip install openpyxl
 
-      - name: Convert feed
+      - name: Generate stock_import.xml
         env:
           MIJEUROPE_FEED_URL: ${{ secrets.MIJEUROPE_FEED_URL }}
           OUT_DIR: public
         run: |
           mkdir -p public
-          python convert_feed.py
-
-      - name: Commit output
-        run: |
-          git config user.name "stock-sync-bot"
-          git config user.email "info@tomaszahradnik.com"
-          git add public/stock_ean.csv public/stock_kod.csv
-          git diff --quiet --cached || git commit -m "Update stock feed"
-          git push
+          python convert_feed_xml.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
