@@ -4,16 +4,23 @@ Stahne skladovy feed z mijeurope.com a prevede ho na XML ve formatu
 Shoptet "dodavatelsky import" (products-supplier-v10.rng), ktery jde
 nahrat rucne pres Produkty -> Import (bez placeneho Automatickeho importu).
 
-Parovani: CODE (vzdy), + EAN kdyz je k dispozici.
-Sklad: <STOCK><AMOUNT>N</AMOUNT></STOCK> - jednoducha hodnota bez skladu/lokace,
-zaporne hodnoty se orizavaji na 0.
+Bezpecnostni pojistka: posila se JEN polozka, kterou jde overit proti
+shoptet_reference.json (export skutecnych kodu/EAN z Shoptetu) - bud
+podle EAN, nebo podle kodu s odstranenym prefixem "MIJ". Polozky bez
+overene shody (admin/logisticke radky jako Paleta, Dobirka, Box, nebo
+produkty, ktere v Shoptetu proste jeste nejsou) se NEPOSILAJI, aby
+import necekane nezalozil nove, prazdne produkty. Misto toho se zapisou
+do unmatched_products.csv pro rucni kontrolu.
+
+shoptet_reference.json se generuje jednorazove z exportu
+Produkty -> Export v Shoptet administraci a je potreba ho obcas obnovit,
+kdyz pribudou nove produkty.
 """
 
+import csv
+import json
 import os
-import sys
 import urllib.request
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
 
 import openpyxl
 
@@ -22,6 +29,7 @@ FEED_URL = os.environ.get(
     "https://www.mijeurope.com/export/products.xls?patternId=39&partnerId=4&hash=6f49d5c9010f126e77eede0fe909e2aad3e3074eddbd987b6ad7952b9418e1de",
 )
 OUT_DIR = os.environ.get("OUT_DIR", ".")
+REFERENCE_PATH = os.environ.get("REFERENCE_PATH", "shoptet_reference.json")
 
 
 def download(url: str, dest: str) -> None:
@@ -30,44 +38,73 @@ def download(url: str, dest: str) -> None:
         f.write(resp.read())
 
 
+def strip_mij_prefix(code: str) -> str:
+    return code[3:] if code.startswith("MIJ") else code
+
+
 def main() -> None:
+    with open(REFERENCE_PATH, encoding="utf-8") as f:
+        reference = json.load(f)
+    known_eans = set(reference["eans"])
+    known_codes = set(reference["codes"])
+
     tmp_xlsx = os.path.join(OUT_DIR, "_mijeurope_raw.xlsx")
     download(FEED_URL, tmp_xlsx)
 
     wb = openpyxl.load_workbook(tmp_xlsx, data_only=True)
     ws = wb["Products export"]
 
-    shop = ET.Element("SHOP")
-    count = 0
-    skipped = 0
+    matched_lines = []
+    unmatched_rows = []
 
     for code, pair_code, name, ean, stock, _f in ws.iter_rows(min_row=2, values_only=True):
         if not code:
-            skipped += 1
             continue
         try:
             stock_int = max(0, int(str(stock).strip()))
         except (TypeError, ValueError):
-            skipped += 1
             continue
 
-        item = ET.SubElement(shop, "SHOPITEM")
-        ET.SubElement(item, "CODE").text = str(code).strip()
-        if ean:
-            ET.SubElement(item, "EAN").text = str(ean).strip()
-        stock_el = ET.SubElement(item, "STOCK")
-        ET.SubElement(stock_el, "AMOUNT").text = str(stock_int)
-        count += 1
+        code = str(code).strip()
+        ean = str(ean).strip() if ean else None
+        stripped = strip_mij_prefix(code)
 
-    xml_bytes = ET.tostring(shop, encoding="utf-8")
-    pretty = minidom.parseString(xml_bytes).toprettyxml(indent="  ", encoding="utf-8")
+        ean_ok = ean is not None and ean in known_eans
+        code_ok = stripped in known_codes
+
+        if ean_ok or code_ok:
+            matched_lines.append((stripped if code_ok else None, ean if ean_ok else None, stock_int))
+        else:
+            unmatched_rows.append((code, ean or "", name or "", stock_int))
+
+    # --- XML jen s overenymi polozkami ---
+    xml_parts = ['<?xml version="1.0" encoding="utf-8"?>', "<SHOP>"]
+    for shoptet_code, ean, stock_int in matched_lines:
+        xml_parts.append("  <SHOPITEM>")
+        if shoptet_code:
+            xml_parts.append(f"    <CODE>{shoptet_code}</CODE>")
+        if ean:
+            xml_parts.append(f"    <EAN>{ean}</EAN>")
+        xml_parts.append(f"    <STOCK>\n      <AMOUNT>{stock_int}</AMOUNT>\n    </STOCK>")
+        xml_parts.append("  </SHOPITEM>")
+    xml_parts.append("</SHOP>")
 
     out_path = os.path.join(OUT_DIR, "stock_import.xml")
-    with open(out_path, "wb") as f:
-        f.write(pretty)
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(xml_parts) + "\n")
+
+    # --- report nenamapovanych radku k rucni kontrole ---
+    unmatched_path = os.path.join(OUT_DIR, "unmatched_products.csv")
+    with open(unmatched_path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f, delimiter=";")
+        w.writerow(["mijeurope_code", "mijeurope_ean", "name", "stock"])
+        w.writerows(unmatched_rows)
 
     os.remove(tmp_xlsx)
-    print(f"Hotovo: {count} polozek zapsano do {out_path}, {skipped} preskoceno (chybi kod/neplatny sklad).")
+    print(
+        f"Hotovo: {len(matched_lines)} položek odesláno do {out_path}, "
+        f"{len(unmatched_rows)} vynecháno -> {unmatched_path}"
+    )
 
 
 if __name__ == "__main__":
