@@ -4,6 +4,8 @@ on:
   schedule:
     # kazdy den v 5:30 UTC (7:30 CEST) - uprav podle toho, kdy si soubor stahujes
     - cron: "30 5 * * *"
+    # druhy beh pred dennim syncem skladu ve 14:00 (sklad HobbyChef se meni casteji)
+    - cron: "30 11 * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -28,6 +30,13 @@ jobs:
         run: |
           mkdir -p public
           python convert_feed_xml.py
+
+      - name: Generate stock_import_hobbychef.xml (Yaxell, Hasegawa, Naniwa)
+        continue-on-error: true
+        env:
+          HOBBYCHEF_STOCK_URL: ${{ secrets.HOBBYCHEF_STOCK_URL }}
+          OUT_DIR: public
+        run: python convert_hobbychef.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
