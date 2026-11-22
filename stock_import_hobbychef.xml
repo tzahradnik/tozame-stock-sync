@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SHOP>
   <SHOPITEM>
+    <CODE>37022</CODE>
+    <STOCK>
+      <AMOUNT>147</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
     <CODE>36601</CODE>
     <STOCK>
       <AMOUNT>132</AMOUNT>
@@ -43,9 +49,15 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
+    <CODE>35534</CODE>
+    <STOCK>
+      <AMOUNT>0</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
     <CODE>37282</CODE>
     <STOCK>
-      <AMOUNT>18</AMOUNT>
+      <AMOUNT>17</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -135,7 +147,7 @@
   <SHOPITEM>
     <CODE>34802</CODE>
     <STOCK>
-      <AMOUNT>94</AMOUNT>
+      <AMOUNT>93</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -247,15 +259,15 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
-    <CODE>34808</CODE>
-    <STOCK>
-      <AMOUNT>19</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
     <CODE>37090-093</CODE>
     <STOCK>
       <AMOUNT>22</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
+    <CODE>34808</CODE>
+    <STOCK>
+      <AMOUNT>19</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -388,12 +400,6 @@
     <CODE>35544</CODE>
     <STOCK>
       <AMOUNT>18</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>35534</CODE>
-    <STOCK>
-      <AMOUNT>0</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -850,12 +856,6 @@
     <CODE>37439</CODE>
     <STOCK>
       <AMOUNT>10</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>37022</CODE>
-    <STOCK>
-      <AMOUNT>147</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
