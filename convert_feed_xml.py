@@ -20,6 +20,8 @@ kdyz pribudou nove produkty.
 import csv
 import json
 import os
+import time
+import urllib.error
 import urllib.request
 
 import openpyxl
@@ -32,10 +34,32 @@ OUT_DIR = os.environ.get("OUT_DIR", ".")
 REFERENCE_PATH = os.environ.get("REFERENCE_PATH", "shoptet_reference.json")
 
 
-def download(url: str, dest: str) -> None:
-    req = urllib.request.Request(url, headers={"User-Agent": "tozame-stock-sync/1.0"})
-    with urllib.request.urlopen(req, timeout=60) as resp, open(dest, "wb") as f:
-        f.write(resp.read())
+def download(url: str, dest: str, attempts: int = 4) -> None:
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+        ),
+        "Accept": "application/vnd.ms-excel,application/octet-stream,*/*;q=0.8",
+        "Accept-Language": "cs,en;q=0.8",
+    }
+    last = None
+    for i in range(1, attempts + 1):
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=60) as resp, open(dest, "wb") as f:
+                f.write(resp.read())
+            return
+        except urllib.error.HTTPError as e:
+            last = e
+            body = e.read()[:300].decode("utf-8", "replace")
+            print(f"download attempt {i}/{attempts} failed: HTTP {e.code} {body!r}", flush=True)
+        except urllib.error.URLError as e:
+            last = e
+            print(f"download attempt {i}/{attempts} failed: {e}", flush=True)
+        if i < attempts:
+            time.sleep(10 * i)
+    raise last
 
 
 def strip_mij_prefix(code: str) -> str:
