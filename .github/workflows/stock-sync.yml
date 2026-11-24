@@ -44,18 +44,18 @@ jobs:
         continue-on-error: true
         env:
           OUT_DIR: public
-          NEW_PRODUCTS_MD: ${{ runner.temp }}/new_products.md
+          NEW_PRODUCTS_MD: new_products.md
         run: python detect_new_products.py
 
       - name: Notify about new products (GitHub issue)
         id: notify
-        if: steps.detect.outcome == 'success' && hashFiles(format('{0}/new_products.md', runner.temp)) != ''
+        if: steps.detect.outcome == 'success' && hashFiles('new_products.md') != ''
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue create --title "Nové produkty ve feedech ($(date +%d.%m.%Y))" \
-            --body-file "${{ runner.temp }}/new_products.md"
+            --body-file new_products.md
 
       - name: Save known products state
         if: steps.detect.outcome == 'success' && steps.notify.outcome != 'failure'
