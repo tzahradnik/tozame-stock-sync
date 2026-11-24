@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   generate:
@@ -37,6 +38,36 @@ jobs:
           HOBBYCHEF_STOCK_URL: ${{ secrets.HOBBYCHEF_STOCK_URL }}
           OUT_DIR: public
         run: python convert_hobbychef.py
+
+      - name: Detect new products in feeds
+        id: detect
+        continue-on-error: true
+        env:
+          OUT_DIR: public
+          NEW_PRODUCTS_MD: ${{ runner.temp }}/new_products.md
+        run: python detect_new_products.py
+
+      - name: Notify about new products (GitHub issue)
+        id: notify
+        if: steps.detect.outcome == 'success' && hashFiles(format('{0}/new_products.md', runner.temp)) != ''
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create --title "Nové produkty ve feedech ($(date +%d.%m.%Y))" \
+            --body-file "${{ runner.temp }}/new_products.md"
+
+      - name: Save known products state
+        if: steps.detect.outcome == 'success' && steps.notify.outcome != 'failure'
+        continue-on-error: true
+        run: |
+          if [ -n "$(git status --porcelain known_unmatched.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add known_unmatched.json
+            git commit -m "Update known unmatched feed products"
+            git pull --rebase -q origin main && git push -q origin HEAD:main
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
