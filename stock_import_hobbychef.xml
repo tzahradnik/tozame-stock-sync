@@ -69,7 +69,7 @@
   <SHOPITEM>
     <CODE>35534</CODE>
     <STOCK>
-      <AMOUNT>0</AMOUNT>
+      <AMOUNT>8</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -105,7 +105,13 @@
   <SHOPITEM>
     <CODE>CBB-100</CODE>
     <STOCK>
-      <AMOUNT>489</AMOUNT>
+      <AMOUNT>485</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
+    <CODE>37284</CODE>
+    <STOCK>
+      <AMOUNT>28</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -123,7 +129,7 @@
   <SHOPITEM>
     <CODE>34801</CODE>
     <STOCK>
-      <AMOUNT>91</AMOUNT>
+      <AMOUNT>90</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -147,7 +153,7 @@
   <SHOPITEM>
     <CODE>4429B</CODE>
     <STOCK>
-      <AMOUNT>108</AMOUNT>
+      <AMOUNT>106</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -169,15 +175,15 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
-    <CODE>34602</CODE>
+    <CODE>34802</CODE>
     <STOCK>
       <AMOUNT>88</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
-    <CODE>34802</CODE>
+    <CODE>34602</CODE>
     <STOCK>
-      <AMOUNT>89</AMOUNT>
+      <AMOUNT>88</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -199,9 +205,21 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
+    <CODE>37200</CODE>
+    <STOCK>
+      <AMOUNT>7</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
     <CODE>34834</CODE>
     <STOCK>
-      <AMOUNT>56</AMOUNT>
+      <AMOUNT>55</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
+    <CODE>S2-410</CODE>
+    <STOCK>
+      <AMOUNT>48</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -249,7 +267,7 @@
   <SHOPITEM>
     <CODE>4429</CODE>
     <STOCK>
-      <AMOUNT>110</AMOUNT>
+      <AMOUNT>108</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -271,9 +289,21 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
+    <CODE>37116</CODE>
+    <STOCK>
+      <AMOUNT>21</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
     <CODE>37271</CODE>
     <STOCK>
       <AMOUNT>57</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
+    <CODE>34812</CODE>
+    <STOCK>
+      <AMOUNT>30</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -301,6 +331,18 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
+    <CODE>IU-1100</CODE>
+    <STOCK>
+      <AMOUNT>26</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
+    <CODE>A-102</CODE>
+    <STOCK>
+      <AMOUNT>92</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
     <CODE>34929</CODE>
     <STOCK>
       <AMOUNT>27</AMOUNT>
@@ -319,6 +361,12 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
+    <CODE>36706</CODE>
+    <STOCK>
+      <AMOUNT>12</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
     <CODE>34808</CODE>
     <STOCK>
       <AMOUNT>19</AMOUNT>
@@ -328,6 +376,12 @@
     <CODE>35536</CODE>
     <STOCK>
       <AMOUNT>24</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
+    <CODE>34844</CODE>
+    <STOCK>
+      <AMOUNT>44</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -355,6 +409,12 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
+    <CODE>37741</CODE>
+    <STOCK>
+      <AMOUNT>16</AMOUNT>
+    </STOCK>
+  </SHOPITEM>
+  <SHOPITEM>
     <CODE>9045</CODE>
     <STOCK>
       <AMOUNT>5</AMOUNT>
@@ -369,13 +429,7 @@
   <SHOPITEM>
     <CODE>5730</CODE>
     <STOCK>
-      <AMOUNT>30</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>37741</CODE>
-    <STOCK>
-      <AMOUNT>16</AMOUNT>
+      <AMOUNT>29</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -463,12 +517,6 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
-    <CODE>36706</CODE>
-    <STOCK>
-      <AMOUNT>12</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
     <CODE>36726</CODE>
     <STOCK>
       <AMOUNT>6</AMOUNT>
@@ -490,12 +538,6 @@
     <CODE>37201</CODE>
     <STOCK>
       <AMOUNT>0</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>37200</CODE>
-    <STOCK>
-      <AMOUNT>7</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -538,12 +580,6 @@
     <CODE>37107</CODE>
     <STOCK>
       <AMOUNT>15</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>37116</CODE>
-    <STOCK>
-      <AMOUNT>21</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -613,18 +649,6 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
-    <CODE>34812</CODE>
-    <STOCK>
-      <AMOUNT>30</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>34844</CODE>
-    <STOCK>
-      <AMOUNT>44</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
     <CODE>34807</CODE>
     <STOCK>
       <AMOUNT>21</AMOUNT>
@@ -675,7 +699,7 @@
   <SHOPITEM>
     <CODE>1841</CODE>
     <STOCK>
-      <AMOUNT>30</AMOUNT>
+      <AMOUNT>29</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -693,7 +717,7 @@
   <SHOPITEM>
     <CODE>1847</CODE>
     <STOCK>
-      <AMOUNT>30</AMOUNT>
+      <AMOUNT>29</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -747,7 +771,7 @@
   <SHOPITEM>
     <CODE>1823</CODE>
     <STOCK>
-      <AMOUNT>30</AMOUNT>
+      <AMOUNT>29</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -783,7 +807,7 @@
   <SHOPITEM>
     <CODE>1820</CODE>
     <STOCK>
-      <AMOUNT>30</AMOUNT>
+      <AMOUNT>29</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -801,7 +825,7 @@
   <SHOPITEM>
     <CODE>1781</CODE>
     <STOCK>
-      <AMOUNT>30</AMOUNT>
+      <AMOUNT>29</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -819,7 +843,7 @@
   <SHOPITEM>
     <CODE>9041</CODE>
     <STOCK>
-      <AMOUNT>30</AMOUNT>
+      <AMOUNT>29</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -837,7 +861,7 @@
   <SHOPITEM>
     <CODE>1826</CODE>
     <STOCK>
-      <AMOUNT>30</AMOUNT>
+      <AMOUNT>29</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -913,21 +937,9 @@
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
-    <CODE>A-102</CODE>
-    <STOCK>
-      <AMOUNT>92</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
     <CODE>PTC-01</CODE>
     <STOCK>
       <AMOUNT>69</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>IU-1100</CODE>
-    <STOCK>
-      <AMOUNT>26</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -964,12 +976,6 @@
     <CODE>S2-430</CODE>
     <STOCK>
       <AMOUNT>17</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>S2-410</CODE>
-    <STOCK>
-      <AMOUNT>48</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
@@ -1204,12 +1210,6 @@
     <CODE>37288</CODE>
     <STOCK>
       <AMOUNT>6</AMOUNT>
-    </STOCK>
-  </SHOPITEM>
-  <SHOPITEM>
-    <CODE>37284</CODE>
-    <STOCK>
-      <AMOUNT>28</AMOUNT>
     </STOCK>
   </SHOPITEM>
   <SHOPITEM>
